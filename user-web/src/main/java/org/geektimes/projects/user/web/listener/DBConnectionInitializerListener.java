@@ -20,10 +20,9 @@ public class DBConnectionInitializerListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Context initializing");
         try {
-            String databaseURL = "jdbc:derby:/db/user-platform;create=true";
-            Connection connection = DriverManager.getConnection(databaseURL);
+            Connection connection = getConnectionByJndi();
             DBConnectionManager.getInstance().setConnection(connection);
-        } catch (SQLException e) {
+        } catch (SQLException | NamingException e) {
             e.printStackTrace();
         }
     }
